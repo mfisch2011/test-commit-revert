@@ -24,19 +24,21 @@
  * 
  * For more information, please refer to <https://unlicense.org>
  */
-package com.github.mfisch2011.gradle.test;
+package com.github.mfisch2011.gradle.plugins;
 
 import org.gradle.api.Project;
+import org.gradle.api.tasks.testing.Test;
+
 import org.gradle.api.Plugin;
 
+
 /**
- * A simple 'hello world' plugin.
+ * TODO:
  */
-public class TestCommitRevertPlugin implements Plugin<Project> {
+class TestCommitRevertPlugin implements Plugin<Project> {
+
+    @Override
     public void apply(Project project) {
-        // Register a task
-        project.getTasks().register("greeting", task -> {
-            task.doLast(s -> System.out.println("Hello from plugin 'com.github.mfisch2011.gradle.test.greeting'"));
-        });
+    	project.getTasks().withType(Test.class,new ConfigureTestRevertCommit());
     }
 }

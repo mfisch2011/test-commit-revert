@@ -24,27 +24,19 @@
  * 
  * For more information, please refer to <https://unlicense.org>
  */
-plugins {
-    id "java-gradle-plugin"
-    id "io.toolebox.git-versioner" version "1.6.5"
-    id "jacoco"
-}
+package com.github.mfisch2011.gradle.plugins;
 
-repositories {
-    mavenCentral()
-}
+import org.gradle.api.Action;
+import org.gradle.api.tasks.testing.Test;
 
-dependencies {
-    implementation "org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r"
-    testImplementation "junit:junit:4.13"
-}
+/**
+ * TODO:
+ */
+public class ConfigureTestRevertCommit implements Action<Test> {
 
-gradlePlugin {
-    // Define the plugin
-    plugins {
-        testCommitRevertPlugin {
-            id = "com.github.mfisch2011.gradle.test-commit-revert"
-            implementationClass = "com.github.mfisch2011.gradle.plugins.TestCommitRevertPlugin"
-        }
-    }
+	@Override
+	public void execute(Test test) {
+		test.afterSuite(new TestRevertCommitClosure(test));
+	}
+
 }
